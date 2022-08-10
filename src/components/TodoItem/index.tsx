@@ -15,6 +15,7 @@ interface TodoItemProps {
 
 
 const TodoItem = ({ todo, checkTodo, deleteTodo, changeTodo, todoForEdit, editTodo }: TodoItemProps) => {
+  const [focus, setFocus] = React.useState(false);
   const [value, setValue] = React.useState(todo.description);
 
 
@@ -32,7 +33,11 @@ const TodoItem = ({ todo, checkTodo, deleteTodo, changeTodo, todoForEdit, editTo
 
 
   return (
-    <li className={styles.li}>
+    <li
+      className={styles.li}
+      onMouseOver={() => setFocus(true)}
+      onMouseLeave={() => setFocus(false)}
+    >
       <div className={styles.container}>
         <div
           onClick={() => checkTodo(todo.id)}
@@ -50,8 +55,10 @@ const TodoItem = ({ todo, checkTodo, deleteTodo, changeTodo, todoForEdit, editTo
         />
         <div
           onClick={() => deleteTodo(todo.id)}
+          style={focus ? {} : { 'display': 'none' }}
           className={styles.delete}
-        ></div>
+        >
+        </div>
       </div>
     </li>
   )
