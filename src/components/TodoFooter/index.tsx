@@ -6,7 +6,7 @@ import styles from './TodoFooter.module.scss';
 
 
 const TodoFooter = () => {
-  const { todos, clearCompletedTodos, displayAllTodos, displayActiveTodos, displayCompletedTodos } = useTodo();
+  const { todos, clearCompletedTodos } = useTodo();
 
 
   const counterTodosLeft = () => {
@@ -25,48 +25,27 @@ const TodoFooter = () => {
   };
 
 
-  const displayAll = () => {
-    console.log('display ALL');
-  };
-
-
-  const displayActive = () => {
-    console.log('display ACTIVE');
-
-  };
-
-
-  const displayCompleted = () => {
-    console.log('display COMPLETED');
-
-  };
-
-
-
   return (
     <footer style={todos.length ? {} : { 'display': 'none' }} className={styles.footer}>
       <div className={styles.itemsLeft}>{counterTodosLeft()}</div>
       <div className={styles.itemsFilter}>
-        <NavLink to='/' className={({ isActive }) => isActive ? styles.active : ''}>
-          <div
-            onClick={() => displayAll()}
-          >
-            All
-          </div>
+        <NavLink
+          to='/'
+          className={({ isActive }) => isActive ? styles.active : ''}
+        >
+          <div>All</div>
         </NavLink>
-        <NavLink to='/active' className={({ isActive }) => isActive ? styles.active : ''}>
-          <div
-            onClick={() => displayActive()}
-          >
-            Active
-          </div>
+        <NavLink
+          to='/active'
+          className={({ isActive }) => isActive ? styles.active : ''}
+        >
+          <div>Active</div>
         </NavLink>
-        <NavLink to='/completed' className={({ isActive }) => isActive ? styles.active : ''}>
-          <div
-            onClick={() => displayCompleted()}
-          >
-            Completed
-          </div>
+        <NavLink
+          to='/completed'
+          className={({ isActive }) => isActive ? styles.active : ''}
+        >
+          <div>Completed</div>
         </NavLink>
       </div>
       <div

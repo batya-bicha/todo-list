@@ -12,7 +12,6 @@ interface TodoProviderProps {
 
 export const TodoProvider = ({ children }: TodoProviderProps) => {
   const [todos, setTodos] = React.useState<ITodo[]>([]);
-  const [filteredTodos, setFilteredTodos] = React.useState<ITodo[]>([]);
   const [todoForEdit, setTodoForEdit] = React.useState<ITodo['id']>(0);
 
 
@@ -67,28 +66,6 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
   };
 
 
-  const displayAllTodos = () => {
-    setFilteredTodos(todos);
-    return filteredTodos;
-    // console.log('displayAllTodos');
-  };
-
-
-  const displayActiveTodos = () => {
-    setFilteredTodos(todos.filter(todo => todo.checked === false));
-    return filteredTodos;
-    // console.log('displayActiveTodos')
-  };
-
-
-  const displayCompletedTodos = () => {
-    setFilteredTodos(todos.filter(todo => todo.checked === true));
-    return filteredTodos;
-    // console.log('displayCompletedTodos')
-  };
-
-
-
   const value = React.useMemo(
     () => ({
       todos,
@@ -100,10 +77,6 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
       addTodo,
       selectAllTodos,
       clearCompletedTodos,
-      displayAllTodos,
-      displayActiveTodos,
-      displayCompletedTodos,
-      filteredTodos,
     }),
     [
       todos,
@@ -115,10 +88,6 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
       addTodo,
       selectAllTodos,
       clearCompletedTodos,
-      displayAllTodos,
-      displayActiveTodos,
-      displayCompletedTodos,
-      filteredTodos,
     ]
   );
 
