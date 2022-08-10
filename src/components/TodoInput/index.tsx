@@ -4,15 +4,16 @@ import styles from './TodoInput.module.scss';
 
 
 
-const DEFAULT_TODO = {
-  description: '',
-};
-
-
-
 const TodoInput = () => {
   const [todo, setTodo] = React.useState('');
-  const { addTodo } = useTodo();
+  const [allTodoTrue, setAllTodoTrue] = React.useState(false);
+  const { todos, addTodo, selectAllTodos } = useTodo();
+
+
+  React.useEffect(() => {
+    const checkedTodos = todos.every(todo => todo.checked === true);
+    setAllTodoTrue(checkedTodos);
+  }, [todos]);
 
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,14 +24,24 @@ const TodoInput = () => {
 
   const addNewTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     return e.key === 'Enter' && todo.trim().length !== 0
-      ? (addTodo({ description: todo}), setTodo(''))
+      ? (addTodo({ description: todo }), setTodo(''))
       : null;
+  };
+
+
+  const selectTodos = () => {
+    selectAllTodos();
   };
 
 
   return (
     <div className={styles.container}>
-      <div className={styles.pickAll}></div>
+      <div
+        style={todos.length ? {} : { 'visibility': 'hidden' }}
+        className={styles.pickAll + ' ' + (allTodoTrue ? styles.allTodoTrue : '')}
+        onClick={() => selectTodos()}
+      >
+      </div>
       <input
         onChange={onChange}
         onKeyDown={addNewTodo}

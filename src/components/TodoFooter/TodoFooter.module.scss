@@ -21,7 +21,7 @@
     overflow: hidden;
     box-shadow: 0 1px 1px rgb(0 0 0 / 20%), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgb(0 0 0 / 20%), 0 16px 0 -6px #f6f6f6,
       0 17px 2px -6px rgb(0 0 0 / 20%);
-      z-index: -1;
+    z-index: -1;
   }
 
   .itemsLeft {
@@ -34,10 +34,13 @@
     justify-content: space-between;
     width: 40%;
 
-    .item {
+    a {
+      display: block;
       padding: 3px 7px;
       cursor: pointer;
       border: 0.5px solid transparent;
+      position: relative;
+      color: #4d4d4d;
 
       &.active {
         border: 0.5px solid rgba(175, 47, 47, 0.2);

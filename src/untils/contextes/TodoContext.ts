@@ -10,6 +10,12 @@ export interface TodoContextProps {
   deleteTodo: (id: ITodo['id']) => void;
   changeTodo: (id: ITodo['id']) => void;
   addTodo: ({ description }: Omit<ITodo, 'id' | 'checked'>) => void;
+  selectAllTodos: () => void;
+  clearCompletedTodos: () => void;
+  displayAllTodos: () => void;
+  displayActiveTodos: () => void;
+  displayCompletedTodos: () => void;
+  filteredTodos: ITodo[];
 };
 
 
@@ -21,4 +27,10 @@ export const TodoContext = React.createContext<TodoContextProps>({
   deleteTodo: () => { },
   changeTodo: () => { },
   addTodo: () => { },
+  selectAllTodos: () => { },
+  clearCompletedTodos: () => { },
+  displayAllTodos: () => { },
+  displayActiveTodos: () => { },
+  displayCompletedTodos: () => { },
+  filteredTodos: [],
 });

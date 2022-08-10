@@ -28,7 +28,6 @@ const TodoItem = ({ todo, checkTodo, deleteTodo, changeTodo, todoForEdit, editTo
 
   const deleteEmptyTodo = () => {
     changeTodo(todo.id);
-    // editTodo(todo.id, value, todo.checked, todoForEdit);
   };
 
 
@@ -48,7 +47,7 @@ const TodoItem = ({ todo, checkTodo, deleteTodo, changeTodo, todoForEdit, editTo
         <input
           onDoubleClick={deleteEmptyTodo}
           onChange={(e) => onChange(e)}
-          className={styles.input}
+          className={styles.input + ' ' + (todo.checked ? styles.checked : '')}
           type="text"
           readOnly={todoForEdit === todo.id ? false : true}
           value={value}

@@ -12,6 +12,7 @@ interface TodoProviderProps {
 
 export const TodoProvider = ({ children }: TodoProviderProps) => {
   const [todos, setTodos] = React.useState<ITodo[]>([]);
+  const [filteredTodos, setFilteredTodos] = React.useState<ITodo[]>([]);
   const [todoForEdit, setTodoForEdit] = React.useState<ITodo['id']>(0);
 
 
@@ -43,10 +44,49 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
   const editTodo = (id: ITodo['id'], description: ITodo['description'], checked: ITodo['checked'], todoForEdit: ITodo['id']) => {
     const modifiedTodo = todos.map(todo => (
       todo.id === id ? { id, description, checked } : todo
-    ))
-    console.log(id, todoForEdit)
-    setTodos(modifiedTodo.filter(todo => ( todo.description.trim().length !== 0)));
+    ));
+    setTodos(modifiedTodo.filter(todo => (todo.description.trim().length !== 0)));
   };
+
+
+  const selectAllTodos = () => {
+    const checkTodos = todos.every(todo => todo.checked === true);
+    const checkedTodos = todos.map(todo => (
+      {
+        id: todo.id,
+        description: todo.description,
+        checked: checkTodos ? false : true,
+      }
+    ));
+    setTodos(checkedTodos);
+  };
+
+
+  const clearCompletedTodos = () => {
+    setTodos(todos.filter(todo => todo.checked !== true));
+  };
+
+
+  const displayAllTodos = () => {
+    setFilteredTodos(todos);
+    return filteredTodos;
+    // console.log('displayAllTodos');
+  };
+
+
+  const displayActiveTodos = () => {
+    setFilteredTodos(todos.filter(todo => todo.checked === false));
+    return filteredTodos;
+    // console.log('displayActiveTodos')
+  };
+
+
+  const displayCompletedTodos = () => {
+    setFilteredTodos(todos.filter(todo => todo.checked === true));
+    return filteredTodos;
+    // console.log('displayCompletedTodos')
+  };
+
 
 
   const value = React.useMemo(
@@ -57,7 +97,13 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
       checkTodo,
       deleteTodo,
       changeTodo,
-      addTodo
+      addTodo,
+      selectAllTodos,
+      clearCompletedTodos,
+      displayAllTodos,
+      displayActiveTodos,
+      displayCompletedTodos,
+      filteredTodos,
     }),
     [
       todos,
@@ -66,7 +112,13 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
       checkTodo,
       deleteTodo,
       changeTodo,
-      addTodo
+      addTodo,
+      selectAllTodos,
+      clearCompletedTodos,
+      displayAllTodos,
+      displayActiveTodos,
+      displayCompletedTodos,
+      filteredTodos,
     ]
   );
 

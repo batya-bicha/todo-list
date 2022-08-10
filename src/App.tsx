@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div className="app">
       <header className='header'>What do you need to do?</header>
-      <Todo/>
+        <Todo />
     </div>
   )
 }

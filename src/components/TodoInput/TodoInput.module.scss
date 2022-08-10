@@ -20,6 +20,12 @@
       font-size: 22px;
       color: #e2e2e2;
     }
+
+    &.allTodoTrue {
+      &::before{
+        color: #a3a3a3;
+      }
+    }
   }
 
   .input {

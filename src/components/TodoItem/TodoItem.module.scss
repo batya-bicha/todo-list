@@ -42,6 +42,11 @@
       margin-left: 15px;
       font-size: 22px;
       font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+
+      &.checked{
+        color: #c9c9c9;
+        text-decoration: line-through;
+      }
     }
 
     .delete {
@@ -63,7 +68,7 @@
         position: absolute;
         height: 15px;
         width: 2px;
-        background-color: #ff7b00;
+        background-color: #ff0000;
       }
 
       &:before {
