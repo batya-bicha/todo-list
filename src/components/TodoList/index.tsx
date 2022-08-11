@@ -1,8 +1,17 @@
 import React from 'react';
 import TodoItem from '../TodoItem';
 import { useTodo } from '../../untils';
-import styles from './TodoList.module.scss';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+
+
+
+const StyledSection = styled.section`
+width: 100%;
+border-top: 0.75px solid #dbdbdb;
+z-index: 2;
+`;
+
 
 
 const TodoList = () => {
@@ -20,8 +29,8 @@ const TodoList = () => {
 
 
   return (
-    <section className={styles.section}>
-      <ul className={styles.list}>
+    <StyledSection>
+      <ul>
         {filterTodos().map(todo => (
           <TodoItem
             key={todo.id}
@@ -34,7 +43,7 @@ const TodoList = () => {
           />
         ))}
       </ul>
-    </section>
+    </StyledSection>
   )
 }
 

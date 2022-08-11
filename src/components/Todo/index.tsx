@@ -3,14 +3,25 @@ import TodoInput from '../TodoInput';
 import TodoList from '../TodoList';
 import { Routes, Route } from "react-router-dom";
 import { TodoProvider, useTodo } from '../../untils';
-import styles from './Todo.module.scss';
+import styled from 'styled-components';
+
+
+
+const StyledTodo = styled.div`
+  margin-top: 80px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
+`;
 
 
 
 const Todo = () => {
   return (
     <TodoProvider>
-      <div className={styles.todo}>
+      <StyledTodo>
         <TodoInput />
         <Routes>
           <Route >
@@ -20,7 +31,7 @@ const Todo = () => {
           </Route>
         </Routes>
         <TodoFooter />
-      </div>
+      </StyledTodo>
     </TodoProvider>
   )
 }
@@ -31,11 +42,10 @@ export default Todo;
 
 //todo добавить useClickOutside**
 //todo исправить фильтр пустой таски при изменении**
-//todo добавить возможность фильтрации тасок (3 состояния)***
+//todo сделать при изменение таску в высоту с текстом**
 
 //todo переписать на styled components**
 
 //todo перепистаь на Next.js + requests*** 
 
 //todo добавить плавную анимацию
-//todo сделать красивый хедере absolute
