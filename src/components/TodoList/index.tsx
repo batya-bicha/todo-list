@@ -1,5 +1,6 @@
 import React, { RefObject } from 'react';
 import TodoItem from '../TodoItem';
+import { ITodo } from '../../models';
 import { useTodo } from '../../untils';
 import { useParams } from 'react-router-dom';
 import { StyledSection } from './TodoList.styles';
@@ -10,10 +11,22 @@ const useClickOutside = <T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
   callback: (arg: boolean) => void,
   toChange: boolean,
+  forEditTodo: {
+    id: ITodo['id'],
+    description: ITodo['description'],
+    checked: ITodo['checked'],
+    toChangeTodo: boolean,
+  },
+  editTodo: (id: ITodo['id'], description: ITodo['description'], checked: ITodo['checked'], state: boolean) => void,
 ) => {
   const handleClick = (e: Event) => {
+    const { id, description, checked, toChangeTodo } = forEditTodo;
     const el = ref?.current;
-    return toChange ? (el && !el.contains(e?.target as Node)) ? (console.log(toChange), callback(false)) : (console.log('nothing')) : null;
+    return toChange
+      ? (el && !el.contains(e?.target as Node))
+        ? (editTodo(id, description, checked, toChangeTodo), callback(false))
+        : null
+      : null;
   };
 
   React.useEffect(() => {

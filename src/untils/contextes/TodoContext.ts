@@ -5,7 +5,7 @@ import { ITodo } from "../../models";
 export interface TodoContextProps {
   todos: ITodo[];
   todoForEdit: ITodo['id'];
-  editTodo: (id: ITodo['id'], description: ITodo['description'], checked: ITodo['checked'], todoForEdit: ITodo['id']) => void;
+  editTodo: (id: ITodo['id'], description: ITodo['description'], checked: ITodo['checked'], state: boolean) => void;
   checkTodo: (id: ITodo['id']) => void;
   deleteTodo: (id: ITodo['id']) => void;
   changeTodo: (id: ITodo['id']) => void;

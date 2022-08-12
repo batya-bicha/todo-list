@@ -48,6 +48,7 @@ height: 100%;
 margin-left: 15px;
 font-size: 22px;
 font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+position: relative;
 
 &.checked{
   color: #c9c9c9;

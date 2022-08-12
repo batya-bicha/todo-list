@@ -39,12 +39,13 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
-  //* todoForEdittodoForEdittodoForEdittodoForEdittodoForEdittodoForEdit
-  const editTodo = (id: ITodo['id'], description: ITodo['description'], checked: ITodo['checked'], todoForEdit: ITodo['id']) => {
+
+  const editTodo = (id: ITodo['id'], description: ITodo['description'], checked: ITodo['checked'], state: boolean) => {
     const modifiedTodo = todos.map(todo => (
       todo.id === id ? { id, description, checked } : todo
     ));
-    setTodos(modifiedTodo.filter(todo => (todo.description.trim().length !== 0)));
+
+    return state ? null : setTodos(modifiedTodo.filter(todo => (todo.description.trim().length !== 0)));
   };
 
 

@@ -16,8 +16,19 @@ interface TodoItemProps {
   deleteTodo: (id: ITodo['id']) => void;
   changeTodo: (id: ITodo['id']) => void;
   todoForEdit: ITodo['id'];
-  editTodo: (id: ITodo['id'], description: ITodo['description'], checked: ITodo['checked'], todoForEdit: ITodo['id']) => void;
-  useClickOutside: <T extends HTMLElement = HTMLElement>(ref: RefObject<T>, callback: (arg: boolean) => void, toChange: boolean) => void;
+  editTodo: (id: ITodo['id'], description: ITodo['description'], checked: ITodo['checked'], state: boolean) => void;
+  useClickOutside: <T extends HTMLElement = HTMLElement>(
+    ref: RefObject<T>,
+    callback: (arg: boolean) => void,
+    toChange: boolean,
+    forEditTodo: {
+      id: ITodo['id'],
+      description: ITodo['description'],
+      checked: ITodo['checked'],
+      toChangeTodo: boolean,
+    },
+    editTodo: (id: ITodo['id'], description: ITodo['description'], checked: ITodo['checked'], state: boolean) => void,
+  ) => void;
 };
 
 
@@ -26,6 +37,8 @@ const TodoItem = ({ todo, checkTodo, deleteTodo, changeTodo, todoForEdit, editTo
   const [focus, setFocus] = React.useState(false);
   const [toChange, setToChange] = React.useState(todoForEdit === todo.id);
   const [value, setValue] = React.useState(todo.description);
+  const [forEditTodo, setForEditTodo] = React.useState({ id: todo.id, description: value, checked: todo.checked, toChangeTodo: false });
+  const clickRef = React.useRef(null);
 
 
   React.useEffect(() => {
@@ -33,23 +46,22 @@ const TodoItem = ({ todo, checkTodo, deleteTodo, changeTodo, todoForEdit, editTo
   }, [todoForEdit]);
 
 
-
-  const clickRef = React.useRef(null);
-
-  // console.log(toChange)
-  useClickOutside(clickRef, setToChange, toChange);
-
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setValue(value);
-    editTodo(todo.id, value, todo.checked, todoForEdit);
+    editTodo(todo.id, value, todo.checked, toChange);
+    setForEditTodo({ id: todo.id, description: value, checked: todo.checked, toChangeTodo: false });
   };
+
+
+  useClickOutside(clickRef, setToChange, toChange, forEditTodo, editTodo);
 
 
   const changeTodoDescription = () => {
+    setToChange(true);
     changeTodo(todo.id);
   };
+
 
   return (
     <StyledTodoItem
@@ -67,7 +79,7 @@ const TodoItem = ({ todo, checkTodo, deleteTodo, changeTodo, todoForEdit, editTo
         <StyledInput
           onDoubleClick={changeTodoDescription}
           onChange={(e) => onChange(e)}
-          className={todo.checked ? 'checked' : ''}
+          className={todo.checked ? 'checked' : 'test'}
           type="text"
           readOnly={!toChange}
           value={value}
