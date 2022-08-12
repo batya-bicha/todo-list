@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import TodoItem from '../TodoItem';
 import { useTodo } from '../../untils';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { StyledSection } from './TodoList.styles';
 
 
 
-const StyledSection = styled.section`
-width: 100%;
-border-top: 0.75px solid #dbdbdb;
-z-index: 2;
-`;
+const useClickOutside = <T extends HTMLElement = HTMLElement>(
+  ref: RefObject<T>,
+  callback: (arg: boolean) => void,
+  toChange: boolean,
+) => {
+  const handleClick = (e: Event) => {
+    const el = ref?.current;
+    return toChange ? (el && !el.contains(e?.target as Node)) ? (console.log(toChange), callback(false)) : (console.log('nothing')) : null;
+  };
+
+  React.useEffect(() => {
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  });
+};
+
 
 
 
@@ -40,6 +53,7 @@ const TodoList = () => {
             todo={todo}
             todoForEdit={todoForEdit}
             editTodo={editTodo}
+            useClickOutside={useClickOutside}
           />
         ))}
       </ul>

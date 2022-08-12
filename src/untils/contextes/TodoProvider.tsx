@@ -12,7 +12,7 @@ interface TodoProviderProps {
 
 export const TodoProvider = ({ children }: TodoProviderProps) => {
   const [todos, setTodos] = React.useState<ITodo[]>([]);
-  const [todoForEdit, setTodoForEdit] = React.useState<ITodo['id']>(0);
+  const [todoForEdit, setTodoForEdit] = React.useState<ITodo['id']>(-1);
 
 
   const addTodo = ({ description }: Omit<ITodo, 'id' | 'checked'>) => {
@@ -39,7 +39,7 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
-
+  //* todoForEdittodoForEdittodoForEdittodoForEdittodoForEdittodoForEdit
   const editTodo = (id: ITodo['id'], description: ITodo['description'], checked: ITodo['checked'], todoForEdit: ITodo['id']) => {
     const modifiedTodo = todos.map(todo => (
       todo.id === id ? { id, description, checked } : todo

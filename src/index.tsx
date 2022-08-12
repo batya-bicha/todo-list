@@ -5,7 +5,6 @@ import { createGlobalStyle } from 'styled-components';
 
 
 const Global = createGlobalStyle`
-@charset "UTF-8";
 
 * {
   padding: 0;
@@ -126,8 +125,7 @@ body {
     width: 100%;
     height: 100%;
 
-    img,
-    header {
+    img, input::placeholder, footer{
       -webkit-touch-callout: none;
       -webkit-user-select: none;
       -khtml-user-select: none;
